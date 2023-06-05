@@ -4,9 +4,11 @@ import { TodoList } from './components/TodoList';
 
 function App() {
     return (
-        <DndProvider backend={HTML5Backend}>
-            <TodoList />
-        </DndProvider>
+        <main className="flex items-center justify-center mt-8">
+            <DndProvider backend={HTML5Backend}>
+                <TodoList />
+            </DndProvider>
+        </main>
     );
 }
 

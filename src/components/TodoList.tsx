@@ -3,10 +3,6 @@ import { useCallback, useEffect, useState } from 'react';
 import { Todo } from './TodoItem';
 import { defaultTodos } from '../assets/defaultTodos.json';
 
-const style = {
-    width: 400,
-};
-
 export interface Item {
     id: string;
     text: string;
@@ -43,6 +39,6 @@ export const TodoList: FC = () => {
             }, 1000);
         });
 
-        return todosLoading ? <div>Loading...</div> : <div style={style}>{todos.map((todo, i) => renderTodo(todo, i))}</div>;
+        return todosLoading ? <div>Loading...</div> : <ul>{todos.map((todo, i) => renderTodo(todo, i))}</ul>;
     }
 };
