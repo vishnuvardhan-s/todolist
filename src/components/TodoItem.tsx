@@ -96,15 +96,17 @@ export const Todo: FC<TodoProps> = ({ id, text, index, moveTodo }) => {
     const handleBlur = () => setShowInputEle(false);
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => updateTodo(index, e.target.value);
     const handleDoubleClick = () => todoState === TodoState.TODO && setShowInputEle(true);
-    const handleEnterClick = (e: React.KeyboardEvent<HTMLInputElement>) => e.key === 'Enter' && setShowInputEle(false);
+    const handleEnterClick = (e: React.KeyboardEvent<HTMLElement>) => e.key === 'Enter' && setShowInputEle(!showInputEle);
 
     return (
         <li
             id={id}
             ref={ref}
+            tabIndex={0}
             style={{ opacity }}
             className="flex flex-row items-center justify-center border border-dashed border-gray-700 rounded-lg bg-white mb-2"
             data-handler-id={handlerId}
+            onKeyDown={handleEnterClick}
         >
             <TodoIcon index={index} />
             <TextEditor
