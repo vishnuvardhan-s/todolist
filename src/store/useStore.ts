@@ -58,6 +58,10 @@ export const useTodosStore = create<AppState>()(
                                 };
                         }
                     }),
+                addTodo: (text) =>
+                    set((state) => ({
+                        todos: [{ id: crypto.randomUUID(), text: text, todoState: TodoState.TODO }, ...state.todos],
+                    })),
             }),
             {
                 name: 'todolist',

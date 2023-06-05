@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useTodosStore } from '@store';
 
 const sarcasticAddNewTodoMessage = [
     'Oh sure, add more...',
@@ -15,23 +16,31 @@ const sarcasticAddNewTodoMessage = [
 
 export const AddNewTodo = () => {
     const [randomPlaceholder, setRandomPlaceholder] = useState<string>('');
+    const [todoText, setTodoText] = useState<string>('');
+
+    const addTodo = useTodosStore((state) => state.addTodo);
 
     useEffect(() => {
         setRandomPlaceholder(sarcasticAddNewTodoMessage[Math.floor(Math.random() * sarcasticAddNewTodoMessage.length)]);
     }, []);
 
-    const handleClick = () => console.log('should add todo');
+    const handleClick = () => {
+        addTodo(todoText);
+        setTodoText("");
+    }
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => setTodoText(e.target.value);
 
     return (
         <li id="new-todo" className="flex flex-row items-center justify-start border border-gray-900 rounded-lg bg-white mb-2">
-            <button className="w-5 h-5 ml-2 leading-5 bg-cyan-300 font-virgil font-thin text-gray-600 border border-black rounded-full cursor-default">
+            <button onClick={handleClick} className="w-5 h-5 ml-2 leading-5 bg-cyan-300 font-virgil font-thin text-gray-600 border border-black rounded-full cursor-default">
                 +
             </button>
             <input
-                type="text"
                 className="font-virgil mx-4 my-2 pl-2 py-1 w-56 sm:w-64 md:w-72 lg:w-80"
-                onClick={handleClick}
-                onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => e.key==='Enter' && handleClick()}
+                type="text"
+                value={todoText}
+                onChange={handleChange}
+                onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => e.key === 'Enter' && handleClick()}
                 placeholder={randomPlaceholder}
                 autoFocus
             />

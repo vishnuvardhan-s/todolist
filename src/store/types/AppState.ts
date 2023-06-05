@@ -7,4 +7,5 @@ export interface AppState {
     removeTodo: (index: number) => void;
     updateTodo: (index: number, updatedTodo: string) => void;
     updateTodoState: (index: number, newState: TodoState) => void;
+    addTodo: (text: string) => void;
 }
