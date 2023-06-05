@@ -32,11 +32,11 @@ export const AddNewTodo = () => {
 
     return (
         <li id="new-todo" className="flex flex-row items-center justify-start border border-gray-900 rounded-lg bg-white mb-2">
-            <button onClick={handleClick} className="w-5 h-5 ml-2 leading-5 bg-cyan-300 font-virgil font-thin text-gray-600 border border-black rounded-full cursor-default">
+            <button onClick={handleClick} className="w-5 h-5 ml-2 leading-5 bg-yellow-200 font-virgil font-thin text-gray-600 border border-black rounded-full cursor-default">
                 +
             </button>
             <input
-                className="font-virgil mx-4 my-2 pl-2 py-1 w-56 sm:w-64 md:w-72 lg:w-80"
+                className="font-virgil outline-transparent mx-4 my-2 pl-2 py-1 w-56 sm:w-64 md:w-72 lg:w-80"
                 type="text"
                 value={todoText}
                 onChange={handleChange}
