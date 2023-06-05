@@ -55,7 +55,7 @@ export const Todo: FC<TodoProps> = ({ id, text, index }) => {
 
             // [todo] see if this dropping can be stopped in some other way
             // ps: already tried canDrop, did not work somehow
-            if(useTodosStore.getState().todos[hoverIndex].todoState === TodoState.DONE) {
+            if (useTodosStore.getState().todos[hoverIndex].todoState === TodoState.DONE) {
                 return;
             }
 
@@ -90,7 +90,7 @@ export const Todo: FC<TodoProps> = ({ id, text, index }) => {
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),
         }),
-        canDrag: () => todoState===TodoState.TODO
+        canDrag: () => todoState === TodoState.TODO,
     });
 
     drag(drop(ref));

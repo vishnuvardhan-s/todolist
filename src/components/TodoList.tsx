@@ -3,8 +3,8 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { TodoItem } from '@shared';
 import { useTodosStore } from '@store';
 import { defaultTodos } from '@assets';
-import { LoadingIndicator } from './LoadingIndicator';
-import { EmptyTodoState } from './EmptyTodoState';
+import { LoadingState } from './states/LoadingState';
+import { EmptyState } from './states/EmptyState';
 import { Todo } from './TodoItem';
 
 export const TodoList: FC = () => {
@@ -24,7 +24,7 @@ export const TodoList: FC = () => {
     }, [setTodos]);
 
     return useMemo(
-        () => (todosLoading ? <LoadingIndicator /> : todos.length === 0 ? <EmptyTodoState /> : <ul>{todos.map((todo, i) => renderTodo(todo, i))}</ul>),
+        () => (todosLoading ? <LoadingState /> : todos.length === 0 ? <EmptyState /> : <ul>{todos.map((todo, i) => renderTodo(todo, i))}</ul>),
         [renderTodo, todos, todosLoading]
     );
 };

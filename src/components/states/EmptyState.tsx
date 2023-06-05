@@ -10,7 +10,7 @@ const sarcasticNoTodosSentences = [
     'Having no todos is the ultimate goal in life, right?',
 ];
 
-export const EmptyTodoState = () => (
+export const EmptyState = () => (
     <div className="flex items-center justify-center space-x-2">
         <p className="font-virgil  px-4 py-4">{sarcasticNoTodosSentences[Math.floor(Math.random() * sarcasticNoTodosSentences.length)]}</p>
     </div>
