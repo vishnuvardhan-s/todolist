@@ -3,7 +3,7 @@
 @tailwind utilities;
 @font-face {
   font-family: "VIRGIL";
-  src: url("../public/fonts/Virgil.woff2");
+  src: url("../fonts/Virgil.woff2");
 }
 
 body {
