@@ -25,16 +25,19 @@ export const AddNewTodo = () => {
     }, []);
 
     const handleClick = () => {
-        if (todoText !== "") {
+        if (todoText !== '') {
             addTodo(todoText);
-            setTodoText("");
+            setTodoText('');
         }
-    }
+    };
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => setTodoText(e.target.value);
 
     return (
         <li id="new-todo" className="flex flex-row items-center justify-start border border-gray-900 rounded-lg bg-white mb-2">
-            <button onClick={handleClick} className="w-5 h-5 ml-2 leading-5 bg-yellow-200 font-virgil font-thin text-gray-600 border border-black rounded-full cursor-default">
+            <button
+                onClick={handleClick}
+                className="w-5 h-5 ml-2 leading-5 bg-yellow-200 font-virgil font-thin text-gray-600 border border-black rounded-full cursor-default"
+            >
                 +
             </button>
             <input

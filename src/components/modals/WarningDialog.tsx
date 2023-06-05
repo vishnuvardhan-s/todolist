@@ -34,7 +34,7 @@ export const WarningDialog = ({ index, setShowWarningDialog }: WarningDialogProp
                     <div className="flex flex-row">
                         <button
                             tabIndex={0}
-                            className="font-virgil ml-6 mt-1 bg-red-400 border border-solid border-black rounded-lg w-12 h-7 cursor-default"
+                            className="font-virgil ml-6 mt-1 bg-gradient-red-button border border-solid border-black rounded-lg w-12 h-7 cursor-default"
                             onClick={onYes}
                             onKeyDown={(e: React.KeyboardEvent<HTMLButtonElement>) => e.key === 'Enter' && onYes()}
                         >
@@ -42,7 +42,7 @@ export const WarningDialog = ({ index, setShowWarningDialog }: WarningDialogProp
                         </button>
                         <button
                             tabIndex={0}
-                            className="font-virgil ml-auto mr-6 mt-1 bg-green-400 border border-solid border-black rounded-lg w-12 h-7 cursor-default"
+                            className="font-virgil ml-auto mr-6 mt-1 bg-gradient-green-button border border-solid border-black rounded-lg w-12 h-7 cursor-default"
                             onClick={onNo}
                             onKeyDown={(e: React.KeyboardEvent<HTMLButtonElement>) => e.key === 'Enter' && onNo()}
                         >

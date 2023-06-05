@@ -104,9 +104,15 @@ export const Todo: FC<TodoProps> = ({ id, text, index }) => {
         <li
             id={id}
             ref={ref}
-            className={classNames('flex flex-row items-center justify-center border border-gray-700 rounded-lg bg-white mb-2', {
-                'opacity-100': isDragging ? 0 : 1,
-            })}
+            className={classNames(
+                'flex flex-row items-center  justify-center border border-gray-700 rounded-lg bg-white mb-2',
+                {
+                    'opacity-100': isDragging ? 0 : 1,
+                },
+                {
+                    'bg-gradient-green': todoState === TodoState.DONE,
+                }
+            )}
             data-handler-id={handlerId}
         >
             <TodoIcon index={index} />
