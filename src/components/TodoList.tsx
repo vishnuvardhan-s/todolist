@@ -4,6 +4,7 @@ import { Todo } from './TodoItem';
 import { Item } from '@shared';
 import { useTodosStore } from '@store';
 import { defaultTodos } from '@assets';
+import { LoadingIndicator } from './LoadingIndicator';
 
 export const TodoList: FC = () => {
     const [todosLoading, setTodosLoading] = useState(true);
@@ -32,5 +33,5 @@ export const TodoList: FC = () => {
         }, 1000);
     }, [setTodos]);
 
-    return useMemo(() => (todosLoading ? <div>Loading...</div> : <ul>{todos.map((todo, i) => renderTodo(todo, i))}</ul>), [renderTodo, todos, todosLoading]);
+    return useMemo(() => (todosLoading ? <LoadingIndicator/> : <ul>{todos.map((todo, i) => renderTodo(todo, i))}</ul>), [renderTodo, todos, todosLoading]);
 };
