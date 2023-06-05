@@ -92,10 +92,10 @@ export const Todo: FC<TodoProps> = ({ id, text, index, moveTodo }) => {
             id={id}
             ref={ref}
             style={{ opacity }}
-            className="flex flex-row items-center justify-center border border-dashed border-gray-700 rounded-lg mb-2 bg-white"
+            className="flex flex-row items-center justify-center border border-dashed border-gray-700 rounded-lg bg-white mb-2 cursor-move"
         >
             <TodoIcon />
-            <p className="font-virgil px-4 py-2 w-60 cursor-move" data-handler-id={handlerId}>
+            <p className="font-virgil px-4 py-2 w-60" data-handler-id={handlerId}>
                 {text}
             </p>
             <DeleteIcon onClickHandler={handleDeleteClick} />
