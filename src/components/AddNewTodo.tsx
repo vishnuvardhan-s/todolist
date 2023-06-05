@@ -25,8 +25,10 @@ export const AddNewTodo = () => {
     }, []);
 
     const handleClick = () => {
-        addTodo(todoText);
-        setTodoText("");
+        if (todoText !== "") {
+            addTodo(todoText);
+            setTodoText("");
+        }
     }
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => setTodoText(e.target.value);
 
