@@ -30,7 +30,6 @@ export const Todo: FC<TodoProps> = ({ id, text, index, moveTodo }) => {
 
     const [showInputEle, setShowInputEle] = useState<boolean>(false);
 
-    const removeTodo = useTodosStore((state) => state.removeTodo);
     const updateTodo = useTodosStore((state) => state.updateTodo);
     const todoState = useTodosStore((state) => state.todos[index].todoState);
 
@@ -86,13 +85,6 @@ export const Todo: FC<TodoProps> = ({ id, text, index, moveTodo }) => {
 
     drag(drop(ref));
 
-    const handleDeleteClick = (e: React.MouseEvent<SVGElement>) => {
-        const todo = e?.currentTarget?.parentElement?.id;
-        if (todo) {
-            removeTodo(index);
-        }
-    };
-
     const handleBlur = () => setShowInputEle(false);
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => updateTodo(index, e.target.value);
     const handleDoubleClick = () => todoState === TodoState.TODO && setShowInputEle(true);
@@ -118,7 +110,7 @@ export const Todo: FC<TodoProps> = ({ id, text, index, moveTodo }) => {
                 handleDoubleClick={handleDoubleClick}
                 handleEnterClick={handleEnterClick}
             />
-            <DeleteIcon onClickHandler={handleDeleteClick} />
+            <DeleteIcon index={index} />
         </li>
     );
 };
