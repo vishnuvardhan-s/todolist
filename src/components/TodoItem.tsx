@@ -2,7 +2,9 @@ import type { Identifier, XYCoord } from 'dnd-core';
 import type { FC } from 'react';
 import { useRef } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
-import { DeleteIcon, TodoIcon } from './Icons';
+import { useTodosStore } from '../store/useStore';
+import { TodoIcon } from './icons/TodoIcon';
+import { DeleteIcon } from './icons/DeleteIcon';
 
 const ItemTypes = {
     TODO: 'todo',
@@ -23,6 +25,9 @@ interface DragItem {
 
 export const Todo: FC<TodoProps> = ({ id, text, index, moveTodo }) => {
     const ref = useRef<HTMLLIElement>(null);
+
+    const removeTodo = useTodosStore((state) => state.removeTodo);
+
     const [{ handlerId }, drop] = useDrop<DragItem, void, { handlerId: Identifier | null }>({
         accept: ItemTypes.TODO,
         collect(monitor) {
@@ -75,16 +80,25 @@ export const Todo: FC<TodoProps> = ({ id, text, index, moveTodo }) => {
 
     drag(drop(ref));
 
+    const handleDeleteClick = (e: React.MouseEvent<SVGElement>) => {
+        const todo = e?.currentTarget?.parentElement?.id;
+        if (todo) {
+            removeTodo(todo);
+        }
+    };
+
     return (
-        <li ref={ref} style={{opacity}} className="flex flex-row items-center justify-center border border-dashed border-gray-700 rounded-lg mb-2 bg-white">
+        <li
+            id={id}
+            ref={ref}
+            style={{ opacity }}
+            className="flex flex-row items-center justify-center border border-dashed border-gray-700 rounded-lg mb-2 bg-white"
+        >
             <TodoIcon />
-            <p
-                className="font-virgil px-4 py-2 w-60 cursor-move"
-                data-handler-id={handlerId}
-            >
+            <p className="font-virgil px-4 py-2 w-60 cursor-move" data-handler-id={handlerId}>
                 {text}
             </p>
-            <DeleteIcon />
+            <DeleteIcon onClickHandler={handleDeleteClick} />
         </li>
     );
 };
