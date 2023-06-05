@@ -33,5 +33,5 @@ export const TodoList: FC = () => {
         }, 1000);
     }, [setTodos]);
 
-    return useMemo(() => (todosLoading ? <LoadingIndicator/> : <ul>{todos.map((todo, i) => renderTodo(todo, i))}</ul>), [renderTodo, todos, todosLoading]);
+    return useMemo(() => (todosLoading ? <LoadingIndicator /> : <ul>{todos.map((todo, i) => renderTodo(todo, i))}</ul>), [renderTodo, todos, todosLoading]);
 };

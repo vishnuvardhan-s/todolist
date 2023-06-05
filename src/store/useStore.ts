@@ -20,9 +20,21 @@ export const useTodosStore = create<AppState>()(
                         [newTodos[dragIndex], newTodos[hoverIndex]] = [newTodos[hoverIndex], newTodos[dragIndex]];
                         return { todos: newTodos };
                     }),
-                removeTodo: (id: string) =>
+                removeTodo: (index: number) =>
                     set((state) => {
-                        return { todos: [...state.todos].filter((todo) => todo.id !== id) };
+                        const newTodos = [...state.todos];
+                        newTodos.splice(index, 1);
+                        return {
+                            todos: newTodos,
+                        };
+                    }),
+                updateTodo: (index: number, updatedText: string) =>
+                    set((state) => {
+                        const newTodos = [...state.todos];
+                        newTodos[index].text = updatedText;
+                        return {
+                            todos: newTodos,
+                        };
                     }),
             }),
             {

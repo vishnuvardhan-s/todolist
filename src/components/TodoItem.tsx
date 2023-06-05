@@ -1,10 +1,11 @@
 import type { Identifier, XYCoord } from 'dnd-core';
 import type { FC } from 'react';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 import { useTodosStore } from '../store/useStore';
 import { TodoIcon } from './icons/TodoIcon';
 import { DeleteIcon } from './icons/DeleteIcon';
+import { TextEditor } from './TextEditor';
 
 const ItemTypes = {
     TODO: 'todo',
@@ -26,7 +27,10 @@ interface DragItem {
 export const Todo: FC<TodoProps> = ({ id, text, index, moveTodo }) => {
     const ref = useRef<HTMLLIElement>(null);
 
+    const [showInputEle, setShowInputEle] = useState<boolean>(false);
+
     const removeTodo = useTodosStore((state) => state.removeTodo);
+    const updateTodo = useTodosStore((state) => state.updateTodo);
 
     const [{ handlerId }, drop] = useDrop<DragItem, void, { handlerId: Identifier | null }>({
         accept: ItemTypes.TODO,
@@ -83,7 +87,7 @@ export const Todo: FC<TodoProps> = ({ id, text, index, moveTodo }) => {
     const handleDeleteClick = (e: React.MouseEvent<SVGElement>) => {
         const todo = e?.currentTarget?.parentElement?.id;
         if (todo) {
-            removeTodo(todo);
+            removeTodo(index);
         }
     };
 
@@ -92,12 +96,18 @@ export const Todo: FC<TodoProps> = ({ id, text, index, moveTodo }) => {
             id={id}
             ref={ref}
             style={{ opacity }}
-            className="flex flex-row items-center justify-center border border-dashed border-gray-700 rounded-lg bg-white mb-2 cursor-move"
+            className="flex flex-row items-center justify-center border border-dashed border-gray-700 rounded-lg bg-white mb-2"
+            data-handler-id={handlerId}
         >
             <TodoIcon />
-            <p className="font-virgil px-4 py-2 w-60" data-handler-id={handlerId}>
-                {text}
-            </p>
+            <TextEditor
+                value={text}
+                showInputEle={showInputEle}
+                handleBlur={() => setShowInputEle(false)}
+                handleChange={(e: React.ChangeEvent<HTMLInputElement>) => updateTodo(index, e.target.value)}
+                handleDoubleClick={() => setShowInputEle(true)}
+                handleEnterClick={(e: React.KeyboardEvent<HTMLInputElement>) => e.key === 'Enter' && setShowInputEle(false)}
+            />
             <DeleteIcon onClickHandler={handleDeleteClick} />
         </li>
     );
