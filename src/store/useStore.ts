@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
 import { AppState } from './types/AppState';
-import { Item } from '@shared';
+import { TodoItem, TodoState } from '@shared';
 
 export const useTodosStore = create<AppState>()(
     devtools(
@@ -11,7 +11,7 @@ export const useTodosStore = create<AppState>()(
                 todos: [],
 
                 // actions
-                setTodos: (newTodos: Item[]) => {
+                setTodos: (newTodos: TodoItem[]) => {
                     set({ todos: newTodos });
                 },
                 updateTodosOrder: (dragIndex: number, hoverIndex: number) =>
@@ -35,6 +35,26 @@ export const useTodosStore = create<AppState>()(
                         return {
                             todos: newTodos,
                         };
+                    }),
+                updateTodoState: (index: number, todoState: TodoState) =>
+                    set((state) => {
+                        const newTodos = [...state.todos];
+                        switch (todoState) {
+                            case TodoState.TODO:
+                                newTodos.unshift(newTodos.splice(index, 1)[0]);
+                                return {
+                                    todos: newTodos,
+                                };
+                            case TodoState.DONE:
+                                newTodos.push(newTodos.splice(index, 1)[0]);
+                                return {
+                                    todos: newTodos,
+                                };
+                            default:
+                                return {
+                                    todos: newTodos,
+                                };
+                        }
                     }),
             }),
             {

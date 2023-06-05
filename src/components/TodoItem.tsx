@@ -2,7 +2,7 @@ import type { Identifier, XYCoord } from 'dnd-core';
 import type { FC } from 'react';
 import { useRef, useState } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
-import { useTodosStore } from '../store/useStore';
+import { useTodosStore } from '@store';
 import { TodoIcon } from './icons/TodoIcon';
 import { DeleteIcon } from './icons/DeleteIcon';
 import { TextEditor } from './TextEditor';
@@ -99,7 +99,7 @@ export const Todo: FC<TodoProps> = ({ id, text, index, moveTodo }) => {
             className="flex flex-row items-center justify-center border border-dashed border-gray-700 rounded-lg bg-white mb-2"
             data-handler-id={handlerId}
         >
-            <TodoIcon />
+            <TodoIcon index={index} />
             <TextEditor
                 value={text}
                 showInputEle={showInputEle}
