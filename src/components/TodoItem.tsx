@@ -2,7 +2,7 @@ import type { Identifier, XYCoord } from 'dnd-core';
 import type { FC } from 'react';
 import { useRef } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
-import { TodoIcon } from './Icons';
+import { DeleteIcon, TodoIcon } from './Icons';
 
 const ItemTypes = {
     TODO: 'todo',
@@ -22,7 +22,7 @@ interface DragItem {
 }
 
 export const Todo: FC<TodoProps> = ({ id, text, index, moveTodo }) => {
-    const ref = useRef<HTMLParagraphElement>(null);
+    const ref = useRef<HTMLLIElement>(null);
     const [{ handlerId }, drop] = useDrop<DragItem, void, { handlerId: Identifier | null }>({
         accept: ItemTypes.TODO,
         collect(monitor) {
@@ -76,16 +76,15 @@ export const Todo: FC<TodoProps> = ({ id, text, index, moveTodo }) => {
     drag(drop(ref));
 
     return (
-        <li className="flex flex-row items-center justify-center">
+        <li ref={ref} style={{opacity}} className="flex flex-row items-center justify-center border border-dashed border-gray-700 rounded-lg mb-2 bg-white">
             <TodoIcon />
             <p
-                ref={ref}
-                className="font-virgil border border-dashed border-gray-700 rounded-lg px-4 py-2 mb-2 ml-2 w-64 bg-white cursor-move"
-                style={{ opacity }}
+                className="font-virgil px-4 py-2 w-60 cursor-move"
                 data-handler-id={handlerId}
             >
                 {text}
             </p>
+            <DeleteIcon />
         </li>
     );
 };
