@@ -3,6 +3,7 @@ import type { FC } from 'react';
 import { useRef, useState } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 import { useTodosStore } from '@store';
+import { TodoState } from '@shared';
 import { TodoIcon } from './icons/TodoIcon';
 import { DeleteIcon } from './icons/DeleteIcon';
 import { TextEditor } from './TextEditor';
@@ -31,6 +32,7 @@ export const Todo: FC<TodoProps> = ({ id, text, index, moveTodo }) => {
 
     const removeTodo = useTodosStore((state) => state.removeTodo);
     const updateTodo = useTodosStore((state) => state.updateTodo);
+    const todoState = useTodosStore((state) => state.todos[index].todoState);
 
     const [{ handlerId }, drop] = useDrop<DragItem, void, { handlerId: Identifier | null }>({
         accept: ItemTypes.TODO,
@@ -91,6 +93,11 @@ export const Todo: FC<TodoProps> = ({ id, text, index, moveTodo }) => {
         }
     };
 
+    const handleBlur = () => setShowInputEle(false);
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => updateTodo(index, e.target.value);
+    const handleDoubleClick = () => todoState === TodoState.TODO && setShowInputEle(true);
+    const handleEnterClick = (e: React.KeyboardEvent<HTMLInputElement>) => e.key === 'Enter' && setShowInputEle(false);
+
     return (
         <li
             id={id}
@@ -101,12 +108,13 @@ export const Todo: FC<TodoProps> = ({ id, text, index, moveTodo }) => {
         >
             <TodoIcon index={index} />
             <TextEditor
+                index={index}
                 value={text}
                 showInputEle={showInputEle}
-                handleBlur={() => setShowInputEle(false)}
-                handleChange={(e: React.ChangeEvent<HTMLInputElement>) => updateTodo(index, e.target.value)}
-                handleDoubleClick={() => setShowInputEle(true)}
-                handleEnterClick={(e: React.KeyboardEvent<HTMLInputElement>) => e.key === 'Enter' && setShowInputEle(false)}
+                handleBlur={handleBlur}
+                handleChange={handleChange}
+                handleDoubleClick={handleDoubleClick}
+                handleEnterClick={handleEnterClick}
             />
             <DeleteIcon onClickHandler={handleDeleteClick} />
         </li>

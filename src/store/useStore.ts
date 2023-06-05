@@ -41,12 +41,14 @@ export const useTodosStore = create<AppState>()(
                         const newTodos = [...state.todos];
                         switch (todoState) {
                             case TodoState.TODO:
-                                newTodos.unshift(newTodos.splice(index, 1)[0]);
+                                newTodos[index].todoState = TodoState.DONE;
+                                newTodos.push(newTodos.splice(index, 1)[0]);
                                 return {
                                     todos: newTodos,
                                 };
                             case TodoState.DONE:
-                                newTodos.push(newTodos.splice(index, 1)[0]);
+                                newTodos[index].todoState = TodoState.TODO;
+                                newTodos.unshift(newTodos.splice(index, 1)[0]);
                                 return {
                                     todos: newTodos,
                                 };
