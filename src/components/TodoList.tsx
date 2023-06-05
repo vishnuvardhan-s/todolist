@@ -1,44 +1,40 @@
 import type { FC } from 'react';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Todo } from './TodoItem';
-import { defaultTodos } from '../assets/defaultTodos.json';
-
-export interface Item {
-    id: string;
-    text: string;
-}
+import { Item } from '@shared';
+import { useTodosStore } from '@store';
+import { defaultTodos } from '@assets';
 
 export interface ContainerState {
     todos: Item[];
 }
 
 export const TodoList: FC = () => {
-    {
-        const [todos, setTodos] = useState<Item[]>([]);
+    const [todosLoading, setTodosLoading] = useState(true);
+    const todos = useTodosStore((state) => state.todos);
+    const setTodos = useTodosStore((state) => state.setTodos);
+    const updateTodosOrder = useTodosStore((state) => state.updateTodosOrder);
 
-        const [todosLoading, setTodosLoading] = useState<boolean>(true);
+    const moveTodo = useCallback(
+        (dragIndex: number, hoverIndex: number) => {
+            updateTodosOrder(dragIndex, hoverIndex);
+        },
+        [updateTodosOrder]
+    );
 
-        const moveTodo = useCallback((dragIndex: number, hoverIndex: number) => {
-            setTodos((prevTodos) => {
-                [prevTodos[dragIndex], prevTodos[hoverIndex]] = [prevTodos[hoverIndex], prevTodos[dragIndex]];
-                return [...prevTodos];
-            });
-        }, []);
+    const renderTodo = useCallback(
+        (todo: Item, index: number) => {
+            return <Todo key={todo.id} index={index} id={todo.id} text={todo.text} moveTodo={moveTodo} />;
+        },
+        [moveTodo]
+    );
 
-        const renderTodo = useCallback(
-            (todo: Item, index: number) => {
-                return <Todo key={todo.id} index={index} id={todo.id} text={todo.text} moveTodo={moveTodo} />;
-            },
-            [moveTodo]
-        );
+    useEffect(() => {
+        setTimeout(() => {
+            setTodos(defaultTodos);
+            setTodosLoading(false);
+        }, 1000);
+    }, [setTodos]);
 
-        useEffect(() => {
-            setTimeout(() => {
-                setTodos(defaultTodos);
-                setTodosLoading(false);
-            }, 1000);
-        });
-
-        return todosLoading ? <div>Loading...</div> : <ul>{todos.map((todo, i) => renderTodo(todo, i))}</ul>;
-    }
+    return useMemo(() => (todosLoading ? <div>Loading...</div> : <ul>{todos.map((todo, i) => renderTodo(todo, i))}</ul>), [renderTodo, todos, todosLoading]);
 };
