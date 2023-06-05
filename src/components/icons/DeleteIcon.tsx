@@ -10,9 +10,9 @@ export const DeleteIcon = ({ index }: DeleteIconProps) => {
     const [showWarningDialog, setShowWarningDialog] = useState<boolean>(false);
 
     const handleClick = () => {
-        draggableList("false");
+        draggableList('false');
         setShowWarningDialog(true);
-    }
+    };
 
     return (
         <>
@@ -24,7 +24,7 @@ export const DeleteIcon = ({ index }: DeleteIconProps) => {
                 width="24"
                 height="24"
                 onClick={handleClick}
-                onKeyDown={(e: React.KeyboardEvent<SVGElement>) => e.key==='Enter' && handleClick()}
+                onKeyDown={(e: React.KeyboardEvent<SVGElement>) => e.key === 'Enter' && handleClick()}
             >
                 <path
                     fill="#000"

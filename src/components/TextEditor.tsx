@@ -19,7 +19,7 @@ export const TextEditor: React.FC<TextEditorProps> = ({ index, value, showInputE
         <span>
             {showInputEle ? (
                 <input
-                    className="font-virgil mx-4 my-2 pl-2 py-1 w-56"
+                    className="font-virgil mx-4 my-2 pl-2 py-1 w-48 sm:w-56 md:w-64 lg:w-72"
                     type="text"
                     value={value}
                     onBlur={handleBlur}
@@ -31,7 +31,7 @@ export const TextEditor: React.FC<TextEditorProps> = ({ index, value, showInputE
                 <p
                     tabIndex={0}
                     className={classNames(
-                        'font-virgil break-words mx-4 my-2 pl-2 py-1 w-56',
+                        'font-virgil break-words mx-4 my-2 pl-2 py-1 w-48 sm:w-56 md:w-64 lg:w-72',
                         { 'line-through': todoState === TodoState.DONE },
                         { 'no-underline': todoState === TodoState.TODO }
                     )}

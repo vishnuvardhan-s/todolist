@@ -22,7 +22,7 @@ export const TodoIcon = ({ index }: TodoIconProps) => {
                 }
             )}
             onClick={() => updateTodoState(index, todoState)}
-            onKeyDown={(e: React.KeyboardEvent<HTMLSpanElement>) => e.key==='Enter' && updateTodoState(index, todoState)}
+            onKeyDown={(e: React.KeyboardEvent<HTMLSpanElement>) => e.key === 'Enter' && updateTodoState(index, todoState)}
         ></span>
     );
 };

@@ -10,18 +10,22 @@ export const WarningDialog = ({ index, setShowWarningDialog }: WarningDialogProp
     const removeTodo = useTodosStore((state) => state.removeTodo);
 
     const onYes = () => {
-        draggableList("true");
+        draggableList('true');
         removeTodo(index);
         setShowWarningDialog(false);
-    }
+    };
 
     const onNo = () => {
-        draggableList("true");
+        draggableList('true');
         setShowWarningDialog(false);
-    }
+    };
 
     return (
-        <dialog onKeyDown={(e: React.KeyboardEvent<HTMLDialogElement>) => e.key==='Escape' && onNo()} draggable={false} className="h-screen w-screen absolute top-0 left-0 flex justify-center bg-gray-600 bg-opacity-25 align-top select-text">
+        <dialog
+            onKeyDown={(e: React.KeyboardEvent<HTMLDialogElement>) => e.key === 'Escape' && onNo()}
+            draggable={false}
+            className="h-screen w-screen absolute top-0 left-0 flex justify-center bg-gray-600 bg-opacity-25 align-top select-text"
+        >
             <div className="w-full flex justify-center h-auto">
                 <div className="bg-white rounded-lg border border-dashed border-gray-700 shadow-md p-4 m-8 w-80 h-28">
                     <div>
@@ -30,17 +34,17 @@ export const WarningDialog = ({ index, setShowWarningDialog }: WarningDialogProp
                     <div className="flex flex-row">
                         <button
                             tabIndex={0}
-                            className="font-virgil ml-16 mt-1 bg-red-400 border border-solid border-black rounded-lg w-16 h-8 cursor-default"
+                            className="font-virgil ml-6 mt-1 bg-red-400 border border-solid border-black rounded-lg w-12 h-7 cursor-default"
                             onClick={onYes}
-                            onKeyDown={(e: React.KeyboardEvent<HTMLButtonElement>) => e.key==='Enter' && onYes()}
+                            onKeyDown={(e: React.KeyboardEvent<HTMLButtonElement>) => e.key === 'Enter' && onYes()}
                         >
                             Yes
                         </button>
                         <button
                             tabIndex={0}
-                            className="font-virgil ml-auto mr-16 mt-1 bg-green-400 border border-solid border-black rounded-lg w-16 h-8 cursor-default"
+                            className="font-virgil ml-auto mr-6 mt-1 bg-green-400 border border-solid border-black rounded-lg w-12 h-7 cursor-default"
                             onClick={onNo}
-                            onKeyDown={(e: React.KeyboardEvent<HTMLButtonElement>) => e.key==='Enter' && onNo()}
+                            onKeyDown={(e: React.KeyboardEvent<HTMLButtonElement>) => e.key === 'Enter' && onNo()}
                         >
                             No
                         </button>
