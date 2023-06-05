@@ -12,6 +12,7 @@ export const TodoIcon = ({ index }: TodoIconProps) => {
 
     return (
         <span
+            tabIndex={0}
             className={classNames(
                 {
                     'h-5 w-5 ml-2 bg-red-300 border border-black border-solid rounded-full inline-block cursor-default': todoState === TodoState.TODO,
@@ -21,6 +22,7 @@ export const TodoIcon = ({ index }: TodoIconProps) => {
                 }
             )}
             onClick={() => updateTodoState(index, todoState)}
+            onKeyDown={(e: React.KeyboardEvent<HTMLSpanElement>) => e.key==='Enter' && updateTodoState(index, todoState)}
         ></span>
     );
 };

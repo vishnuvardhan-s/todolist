@@ -29,12 +29,14 @@ export const TextEditor: React.FC<TextEditorProps> = ({ index, value, showInputE
                 />
             ) : (
                 <p
+                    tabIndex={0}
                     className={classNames(
                         'font-virgil break-words mx-4 my-2 pl-2 py-1 w-56',
                         { 'line-through': todoState === TodoState.DONE },
                         { 'no-underline': todoState === TodoState.TODO }
                     )}
                     onDoubleClick={handleDoubleClick}
+                    onKeyDown={handleEnterClick}
                 >
                     {value}
                 </p>
