@@ -108,7 +108,7 @@ export const Todo: FC<TodoProps> = ({ id, text, index, moveTodo }) => {
             data-handler-id={handlerId}
             onKeyDown={handleEnterClick}
         >
-            <TodoIcon index={index} />
+            <TodoIcon index={index}/>
             <TextEditor
                 index={index}
                 value={text}
