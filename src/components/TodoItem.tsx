@@ -2,6 +2,7 @@ import type { Identifier, XYCoord } from 'dnd-core';
 import type { FC } from 'react';
 import { useRef, useState } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
+import classNames from 'classnames';
 import { useTodosStore } from '@store';
 import { TodoState } from '@shared';
 import { TodoIcon } from './icons/TodoIcon';
@@ -16,7 +17,6 @@ export interface TodoProps {
     id: string;
     text: string;
     index: number;
-    moveTodo: (dragIndex: number, hoverIndex: number) => void;
 }
 
 interface DragItem {
@@ -25,13 +25,18 @@ interface DragItem {
     type: string;
 }
 
-export const Todo: FC<TodoProps> = ({ id, text, index, moveTodo }) => {
+export const Todo: FC<TodoProps> = ({ id, text, index }) => {
     const ref = useRef<HTMLLIElement>(null);
 
     const [showInputEle, setShowInputEle] = useState<boolean>(false);
 
     const updateTodo = useTodosStore((state) => state.updateTodo);
     const todoState = useTodosStore((state) => state.todos[index].todoState);
+    const updateTodosOrder = useTodosStore((state) => state.updateTodosOrder);
+
+    const moveTodo = (dragIndex: number, hoverIndex: number) => {
+        updateTodosOrder(dragIndex, hoverIndex);
+    };
 
     const [{ handlerId }, drop] = useDrop<DragItem, void, { handlerId: Identifier | null }>({
         accept: ItemTypes.TODO,
@@ -81,8 +86,6 @@ export const Todo: FC<TodoProps> = ({ id, text, index, moveTodo }) => {
         }),
     });
 
-    const opacity = isDragging ? 0 : 1;
-
     drag(drop(ref));
 
     const handleBlur = () => setShowInputEle(false);
@@ -95,8 +98,9 @@ export const Todo: FC<TodoProps> = ({ id, text, index, moveTodo }) => {
             id={id}
             ref={ref}
             tabIndex={0}
-            style={{ opacity }}
-            className="flex flex-row items-center justify-center border border-dashed border-gray-700 rounded-lg bg-white mb-2"
+            className={classNames('flex flex-row items-center justify-center border border-dashed border-gray-700 rounded-lg bg-white mb-2', {
+                'opacity-100': isDragging ? 0 : 1,
+            })}
             data-handler-id={handlerId}
             onKeyDown={handleEnterClick}
         >
