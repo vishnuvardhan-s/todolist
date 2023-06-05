@@ -4,8 +4,8 @@ import { TodoItem } from '@shared';
 import { useTodosStore } from '@store';
 import { defaultTodos } from '@assets';
 import { LoadingState } from './states/LoadingState';
-import { EmptyState } from './states/EmptyState';
 import { Todo } from './TodoItem';
+import { AddNewTodo } from './AddNewTodo';
 
 export const TodoList: FC = () => {
     const [todosLoading, setTodosLoading] = useState(true);
@@ -23,8 +23,15 @@ export const TodoList: FC = () => {
         }, 1000);
     }, [setTodos]);
 
-    return useMemo(
-        () => (todosLoading ? <LoadingState /> : todos.length === 0 ? <EmptyState /> : <ul>{todos.map((todo, i) => renderTodo(todo, i))}</ul>),
-        [renderTodo, todos, todosLoading]
-    );
+    return useMemo(() => {
+        if (todosLoading) {
+            return <LoadingState />;
+        }
+        return (
+            <div className="flex flex-col">
+                <AddNewTodo />
+                <ul>{todos.map((todo, i) => renderTodo(todo, i))}</ul>
+            </div>
+        );
+    }, [renderTodo, todos, todosLoading]);
 };
