@@ -5,10 +5,6 @@ import { Item } from '@shared';
 import { useTodosStore } from '@store';
 import { defaultTodos } from '@assets';
 
-export interface ContainerState {
-    todos: Item[];
-}
-
 export const TodoList: FC = () => {
     const [todosLoading, setTodosLoading] = useState(true);
     const todos = useTodosStore((state) => state.todos);
