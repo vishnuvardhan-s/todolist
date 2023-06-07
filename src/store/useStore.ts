@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { devtools, persist } from 'zustand/middleware';
+import { createJSONStorage, devtools, persist } from 'zustand/middleware';
 import { AppState } from './types/AppState';
 import { TodoItem, TodoState } from '@shared';
 
@@ -65,6 +65,7 @@ export const useTodosStore = create<AppState>()(
             }),
             {
                 name: 'todolist',
+                storage: createJSONStorage(() => localStorage),
             }
         )
     )

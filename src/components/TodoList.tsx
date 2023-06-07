@@ -2,7 +2,6 @@ import type { FC } from 'react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { TodoItem } from '@shared';
 import { useTodosStore } from '@store';
-import { defaultTodos } from '@assets';
 import { LoadingState } from './states/LoadingState';
 import { Todo } from './TodoItem';
 import { AddNewTodo } from './AddNewTodo';
@@ -17,10 +16,15 @@ export const TodoList: FC = () => {
     }, []);
 
     useEffect(() => {
-        setTimeout(() => {
-            setTodos(defaultTodos);
+        const loadTodos = async () => {
+            await new Promise((resolve) => setTimeout(resolve, 1000));
+            const persistedTodos = localStorage.getItem('todos');
+            if (persistedTodos) {
+                setTodos(JSON.parse(persistedTodos));
+            }
             setTodosLoading(false);
-        }, 1000);
+        };
+        loadTodos();
     }, [setTodos]);
 
     return useMemo(() => {
