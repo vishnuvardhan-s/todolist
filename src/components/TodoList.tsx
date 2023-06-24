@@ -17,11 +17,8 @@ export const TodoList: FC = () => {
 
     useEffect(() => {
         const loadTodos = async () => {
-            await new Promise((resolve) => setTimeout(resolve, 1000));
-            const persistedTodos = localStorage.getItem('todos');
-            if (persistedTodos) {
-                setTodos(JSON.parse(persistedTodos));
-            }
+            // this is just to give user a feedback that something is loading
+            await new Promise((resolve) => setTimeout(resolve, 200));
             setTodosLoading(false);
         };
         loadTodos();
