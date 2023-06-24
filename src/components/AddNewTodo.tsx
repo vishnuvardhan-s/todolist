@@ -1,28 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useTodosStore } from '@store';
 
-const sarcasticAddNewTodoMessage = [
-    'Oh sure, add more...',
-    'Ah, Just what I needed...',
-    "As if I'm not busy enough...",
-    'Because I have nothing else to do...',
-    'Great, more work...',
-    "Can't wait to add to the list...",
-    'Oh joy, more tasks...',
-    'Just when I thought we were done...',
-    'Because I love being overwhelmed...',
-    'Like I have time...',
-];
-
 export const AddNewTodo = () => {
-    const [randomPlaceholder, setRandomPlaceholder] = useState<string>('');
     const [todoText, setTodoText] = useState<string>('');
 
     const addTodo = useTodosStore((state) => state.addTodo);
-
-    useEffect(() => {
-        setRandomPlaceholder(sarcasticAddNewTodoMessage[Math.floor(Math.random() * sarcasticAddNewTodoMessage.length)]);
-    }, []);
 
     const handleClick = () => {
         if (todoText !== '') {
@@ -46,7 +28,7 @@ export const AddNewTodo = () => {
                 value={todoText}
                 onChange={handleChange}
                 onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => e.key === 'Enter' && handleClick()}
-                placeholder={randomPlaceholder}
+                placeholder="add ..."
                 autoFocus
             />
         </li>
