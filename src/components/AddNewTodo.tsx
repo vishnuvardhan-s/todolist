@@ -28,7 +28,7 @@ export const AddNewTodo = () => {
                 value={todoText}
                 onChange={handleChange}
                 onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => e.key === 'Enter' && handleClick()}
-                placeholder="add ..."
+                placeholder="typing...."
                 autoFocus
             />
         </li>
