@@ -19,7 +19,7 @@ export const TextEditor: React.FC<TextEditorProps> = ({ index, value, showInputE
         <span>
             {showInputEle ? (
                 <input
-                    className="font-virgil outline-transparent mx-4 my-2 pl-2 py-1 w-48 sm:w-56 md:w-64 lg:w-72"
+                    className="font-virgil outline-transparent text-lg mx-4 my-2 pl-2 py-1 w-48 sm:w-56 md:w-64 lg:w-72"
                     type="text"
                     value={value}
                     onBlur={handleBlur}
