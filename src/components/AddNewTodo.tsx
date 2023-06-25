@@ -23,7 +23,7 @@ export const AddNewTodo = () => {
                 +
             </button>
             <input
-                className="font-virgil mx-4 my-2 pl-2 py-1 w-56 sm:w-64 md:w-72 lg:w-80"
+                className="font-virgil mx-4 my-2 pl-2 py-1 w-56 rounded-lg sm:w-64 md:w-72 lg:w-80"
                 type="text"
                 value={todoText}
                 onChange={handleChange}
