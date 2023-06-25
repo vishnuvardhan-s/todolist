@@ -8,7 +8,7 @@
         "build:dev": "tsc && vite build",
         "build:prod": "NODE_ENV=production && tsc && vite build",
         "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-        "prettier:all": "prettier --write --config ./prettier.config.json \"src/**/*.{ts,tsx,js,jsx}\" \"*.json\" \"*.js\" \"*.ts\"",
+        "prettier:all": "prettier --write --config ./.prettierrc.json \"src/**/*.{ts,tsx,js,jsx}\" \"*.json\" \"*.js\" \"*.ts\"",
         "preview": "vite preview"
     },
     "dependencies": {
