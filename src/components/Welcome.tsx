@@ -1,7 +1,7 @@
-import { updatePersistedState } from '@shared';
+import { AppState, updatePersistedState } from '@shared';
 
 interface WelcomeProps {
-    setShowWelcomeScreen: (showWelcomeScreen: boolean) => void;
+    setShowWelcomeScreen: (appState: AppState) => void;
 }
 
 export const Welcome = ({ setShowWelcomeScreen }: WelcomeProps) => {
@@ -14,8 +14,8 @@ export const Welcome = ({ setShowWelcomeScreen }: WelcomeProps) => {
             <div className="flex items-center justify-center">
                 <button
                     onClick={async () => {
-                        updatePersistedState("welcomeScreen", "shown");
-                        setShowWelcomeScreen(false);
+                        updatePersistedState('welcomeScreen', 'shown');
+                        setShowWelcomeScreen(AppState.TODOLIST);
                     }}
                     className="font-virgil h-10 px-3 bg-black text-white rounded-md"
                 >
