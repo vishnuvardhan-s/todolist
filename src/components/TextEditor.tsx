@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import { useTodosStore } from '@store';
 import { TodoState } from '@shared';
+import { useEffect } from 'react';
 
 interface TextEditorProps {
     index: number;
@@ -14,6 +15,13 @@ interface TextEditorProps {
 
 export const TextEditor: React.FC<TextEditorProps> = ({ index, value, showInputEle, handleChange, handleBlur, handleDoubleClick, handleEnterClick }) => {
     const todoState = useTodosStore((state) => state.todos[index].todoState);
+    const removeTodo = useTodosStore((state) => state.removeTodo);
+
+    useEffect(() => {
+        if (showInputEle === false && value === '') {
+            removeTodo(index);
+        }
+    }, [showInputEle, removeTodo, value, index]);
 
     return (
         <span>
