@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useTodosStore } from '@store';
 
 export const AddNewTodo = () => {
     const [todoText, setTodoText] = useState<string>('');
+    const inputDiv = useRef<HTMLDivElement>(null);
 
     const addTodo = useTodosStore((state) => state.addTodo);
 
@@ -10,9 +11,13 @@ export const AddNewTodo = () => {
         if (todoText !== '') {
             addTodo(todoText);
             setTodoText('');
+            const div = inputDiv.current;
+            if (div) div.textContent = '';
         }
     };
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => setTodoText(e.target.value);
+    const handleChange = (e: React.ChangeEvent<HTMLDivElement>) => {
+        setTodoText(e.target.textContent ?? '');
+    };
 
     return (
         <li id="new-todo" className="flex flex-row items-center justify-start border border-gray-900 rounded-lg bg-white mb-2">
@@ -22,15 +27,20 @@ export const AddNewTodo = () => {
             >
                 +
             </button>
-            <input
-                className="font-virgil mx-4 my-2 pl-2 py-1 w-56 rounded-lg sm:w-64 md:w-72 lg:w-80"
-                type="text"
-                value={todoText}
-                onChange={handleChange}
-                onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => e.key === 'Enter' && handleClick()}
+            <div
+                ref={inputDiv}
+                contentEditable={true}
+                className="font-virgil mx-4 my-2 pl-2 py-1 w-56 rounded-lg sm:w-64 md:w-72 lg:w-80 resize-y"
+                onInput={handleChange}
+                onKeyDown={(e: React.KeyboardEvent<HTMLDivElement>) => {
+                    if (e.key === 'Enter') {
+                        handleClick();
+                        e.preventDefault();
+                    }
+                }}
                 placeholder="typing...."
                 autoFocus
-            />
+            ></div>
         </li>
     );
 };
