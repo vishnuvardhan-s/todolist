@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useTodosStore } from '@store';
 
 export const AddNewTodo = () => {
@@ -6,6 +6,10 @@ export const AddNewTodo = () => {
     const inputDiv = useRef<HTMLDivElement>(null);
 
     const addTodo = useTodosStore((state) => state.addTodo);
+
+    useEffect(() => {
+        inputDiv.current?.focus();
+    }, []);
 
     const handleClick = () => {
         if (todoText !== '') {
@@ -29,6 +33,7 @@ export const AddNewTodo = () => {
             </button>
             <div
                 ref={inputDiv}
+                data-placeholder="typing..."
                 contentEditable={true}
                 className="font-virgil mx-4 my-2 pl-2 py-1 w-56 rounded-lg sm:w-64 md:w-72 lg:w-80 resize-y"
                 onInput={handleChange}
@@ -38,7 +43,6 @@ export const AddNewTodo = () => {
                         e.preventDefault();
                     }
                 }}
-                placeholder="typing...."
                 autoFocus
             ></div>
         </li>
